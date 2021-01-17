@@ -1,3 +1,0 @@
-[submodule "my_libc"]
-	path = my_libc
-	url = git@github.com:GGWP-grats/my_libc.git
