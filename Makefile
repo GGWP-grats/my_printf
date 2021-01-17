@@ -1,27 +1,33 @@
 NAME = printf.a
-
+SRC = src/print.c src/ft_printf.c src/put_c.c
 OBJ = $(SRC:.c=.o)
 CCW = gcc -Wall -Wextra -Werror -g 
+LIBFT = libft/
+libft.a = $(LIBFT)libft.a
+incl = -I include/
 
 all: $(NAME)
 
-$(NAME): $(LIB) $(OBJ)
-	$(CCW) $(OBJ) -o gnl
-
-f: $(LIB) $(OBJ)
-	$(CCW) -fsanitize=address -fstack-protector $(OBJ) -o gnl
-
+$(NAME): $(OBJ) $(LIBFT)
+	$(CCW) $(OBJ) $(libft.a) $(incl) -o $(NAME:.a=)
+	@echo ;
+	@./printf
 %.o: %.c
-	$(CCW) $(BUFFER_SIZE) -c $< -o $@
-clean:
-	@rm -rf *.o
+	$(CCW) $(incl) -c $< -o $@
 
-libft:
-	make -C libft/
+clean:
+	@rm -rf src/*.o
+	@make clean -C $(LIBFT)
+
+$(LIBFT):
+	@make -C libft
+
 fclean: clean
+	@make fclean -C	$(LIBFT) 
 	@rm -rf $(NAME)
 
 re: fclean all
 
 ref: fclean f
-.PHONY: b re clean clean libft.a $(NAME) all
+
+.PHONY: b re clean clean $(LIBFT) $(NAME) all
