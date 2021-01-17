@@ -1,5 +1,5 @@
 NAME = printf.a
-SRC = src/print.c src/ft_printf.c src/put_c.c
+SRC = src/print.c src/ft_printf.c src/put_format.c
 OBJ = $(SRC:.c=.o)
 CCW = gcc -Wall -Wextra -Werror -g 
 LIBFT = libft/
