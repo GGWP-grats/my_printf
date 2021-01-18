@@ -9,11 +9,11 @@ incl = -I include/
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CCW) $(OBJ) $(libft.a) $(incl) -o $(NAME)
 	ar rc $(NAME) */*.o
 	$(CCW) main.c $(NAME) $(incl) -o printf
 	@echo ;
 	@./printf
+
 %.o: %.c
 	$(CCW) $(incl) -c $< -o $@
 
