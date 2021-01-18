@@ -9,11 +9,13 @@
 #  define TRUE 1
 #  define FALSE 0
 # endif
+# define ARR_BASE "0123456789abcdef0123456789ABCDEF"
+
 typedef struct	s_pft
 {
 	int			f_ladjust;
 	int			f_prec;
-	int			f_capitals;
+	int			capital;
 	int			zero;
 	int			prec_width;
 	int			width;
@@ -22,15 +24,17 @@ typedef struct	s_pft
 
 int				pft_atoi(const char **format);
 int				ft_printf(const char *format, ...);
-int				print(const char *format, va_list *argp);
+int				start_pf(const char *format, va_list *argp);
 void			putchar_c(char c, int *ret);
+void			putnum_base(long int i, t_pft *set, int *ret);
+void			u_putnum_base(unsigned long int i, t_pft *set, int *ret);
 void			putf_i(int i, t_pft *set, int *ret);
-void			putf_ui(unsigned int i, t_pft *set, int *ret);
+void			putf_u(unsigned int i, t_pft *set, int *ret);
 void			putf_s(char *s, t_pft *set, int *ret);
 void			putf_c(char c, t_pft *set, int *ret);
 void			get_set(const char **format, va_list *argp, t_pft *set);
 void			do_print(const char **format, va_list *argp, t_pft *set, int *ret);
 void			print_width(t_pft *set, int *ret);
 
-void			print_flags(t_pft *set);
+//void			print_flags(t_pft *set);
 #endif

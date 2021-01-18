@@ -1,5 +1,5 @@
 NAME = printf.a
-SRC = src/print.c src/ft_printf.c src/put_format.c
+SRC = src/print.c src/ft_printf.c src/put_format.c src/printf_aux.c
 OBJ = $(SRC:.c=.o)
 CCW = gcc -Wall -Wextra -Werror -g 
 LIBFT = libft/
@@ -9,7 +9,9 @@ incl = -I include/
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CCW) $(OBJ) $(libft.a) $(incl) -o $(NAME:.a=)
+	$(CCW) $(OBJ) $(libft.a) $(incl) -o $(NAME)
+	ar rc $(NAME) */*.o
+	$(CCW) main.c $(NAME) $(incl) -o printf
 	@echo ;
 	@./printf
 %.o: %.c

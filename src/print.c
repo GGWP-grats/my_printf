@@ -1,7 +1,7 @@
 #include "ft_printf.h"
 
 /*
-** main goals is to write printf
+** main goal is to write printf
 ** Mandatory part
 ** with following conversions:
 **
@@ -12,25 +12,41 @@
 **			- 0 . * 
 **
 */
-int			pft_atoi(const char **format)
+
+void		putchar_c(char c, int *ret)
 {
-	int i;
-	int sign;
+	*ret += 1;
+	write(1, &c, 1);
+}
+
+void		putnum_base(long int i, t_pft *set, int *ret)
+{		
+	int len;
 	
-	sign = 1;
-	i = 0;	
-	if (**format == '+' || **format == '-')
+	len = set->base;
+	if (i < 0 && (i = -i))
+		putchar_c('-', ret);
+	if (i >= len)
 	{
-		if (**format == '-')
-			sign = -1;
-		(*format)++;
+		putnum_base(i / len, set, ret);
+		putnum_base(i % len, set, ret);
 	}
-	while (ft_isdigit(**format))
+	else if (i < len)
+		putchar_c(ARR_BASE[i + set->capital], ret);
+}
+
+void		u_putnum_base(unsigned long int i, t_pft *set, int *ret)
+{		
+	unsigned int len;
+	
+	len = set->base;
+	if (i >= len)
 	{
-		i = i * 10 + ft_ctod(**format);
-		(*format)++;
+		u_putnum_base(i / len, set, ret);
+		u_putnum_base(i % len, set, ret);
 	}
-	return (i * sign);
+	else if (i < len)
+		putchar_c(ARR_BASE[i + set->capital], ret);
 }
 
 void		print_width(t_pft *set, int *ret)
@@ -50,61 +66,17 @@ void		do_print(const char **format, va_list *argp, t_pft *set, int *ret)
 {
 	char 	*s;
 	char 	c;
+	int		i;
 
-	//print_flags(set);	
 	if (**format == 'c' && (c = va_arg(*argp, int)))
 		putf_c(c, set, ret);
 	else if (**format == 's' && (s = va_arg(*argp, char *)))
 		putf_s(s, set, ret);
-}
-
-void	get_set(const char **format, va_list *argp, t_pft *set)
-{
-	while (1)
-	{
-		if (**format == '-')
-			set->f_ladjust = TRUE;
-		else if (**format == '0')
-			set->zero = TRUE;
-		else
-			break;
-		(*format)++;
-	}
-	if (ft_isdigit(**format)) 
-		set->width = pft_atoi(format);
-	else if (**format == '*' && (*format)++)
-		if ((set->width= va_arg(*argp, int)) < 0)
-			set->width = -(set->width);
-	if (**format == '.' && (*format)++)
-	{
-		set->f_prec = TRUE;
-		if (ft_isdigit(**format))
-			set->prec_width = pft_atoi(format);
-		else if (**format == '*' &&(*format)++)
-			if ((set->prec_width = va_arg(*argp, int)) < 0)
-				set->f_prec = FALSE;
-	}
-}
-int		print(const char *format, va_list *argp)
-{
-	int ret;
-	t_pft set;
-
-	ret = 0;
-	set = (t_pft){0};
-	while (*format)
-	{
-		if (*format != '%')
-			putchar_c(*format, &ret);
-		else if	(*format == '%')
-		{
-			format++;
-			get_set(&format, argp, &set);
-			do_print(&format, argp, &set, &ret);
-			set = (t_pft){0};
-		}
-		format++;
-	}
-	va_end(*argp);
-	return (ret);
+	else if ((**format == 'd' || **format == 'i') && (i = va_arg(*argp, int)))
+		putf_i(i, set, ret);
+	else if (**format == 'u' && (i = va_arg(*argp, int)))
+		putf_u(i, set, ret);
+	else if (**format == 'x' && (i = va_arg(*argp, int))
+			&& (set->base = 16))
+		putf_u(i, set, ret);
 }
