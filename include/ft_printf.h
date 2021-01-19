@@ -25,6 +25,7 @@ typedef struct	s_pft
 int				pft_atoi(const char **format);
 int				ft_printf(const char *format, ...);
 int				start_pf(const char *format, va_list *argp);
+int				check_null_str(char *s, t_pft *set, int *ret);
 void			putchar_c(char c, int *ret);
 void			putnum_base(long int i, t_pft *set, int *ret);
 void			u_putnum_base(unsigned long int i, t_pft *set, int *ret);

@@ -1,21 +1,21 @@
-NAME = printf.a
+NAME = libftprintf.a
 SRC = src/print.c src/ft_printf.c src/put_format.c src/printf_aux.c
 OBJ = $(SRC:.c=.o)
 CCW = gcc -Wall -Wextra -Werror -g 
 LIBFT = libft/
-libft.a = $(LIBFT)libft.a
 incl = -I include/
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
 	ar rc $(NAME) */*.o
-	$(CCW) main.c $(NAME) $(incl) -o printf
-	@echo ;
-	@./printf
 
 %.o: %.c
-	$(CCW) $(incl) -c $< -o $@
+	$(CCW) $(incl) -g -c $< -o $@
+
+test:
+	$(CCW) test.c $(NAME) $(incl) -o test
+	./test
 
 clean:
 	@rm -rf src/*.o
@@ -26,10 +26,10 @@ $(LIBFT):
 
 fclean: clean
 	@make fclean -C	$(LIBFT) 
-	@rm -rf $(NAME)
+	@rm -rf $(NAME) test
 
-re: fclean all
+re: clean all
 
-ref: fclean f
+ref: fclean
 
-.PHONY: b re clean clean $(LIBFT) $(NAME) all
+.PHONY: test re clean $(LIBFT) $(NAME) all

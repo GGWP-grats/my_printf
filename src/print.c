@@ -24,8 +24,8 @@ void		putnum_base(long int i, t_pft *set, int *ret)
 	int len;
 	
 	len = set->base;
-	if (i < 0 && (i = -i))
-		putchar_c('-', ret);
+	if (i < 0) 
+		i = -i;
 	if (i >= len)
 	{
 		putnum_base(i / len, set, ret);
@@ -68,15 +68,19 @@ void		do_print(const char **format, va_list *argp, t_pft *set, int *ret)
 	char 	c;
 	int		i;
 
-	if (**format == 'c' && (c = va_arg(*argp, int)))
-		putf_c(c, set, ret);
-	else if (**format == 's' && (s = va_arg(*argp, char *)))
-		putf_s(s, set, ret);
-	else if ((**format == 'd' || **format == 'i') && (i = va_arg(*argp, int)))
-		putf_i(i, set, ret);
-	else if (**format == 'u' && (i = va_arg(*argp, int)))
-		putf_u(i, set, ret);
-	else if (**format == 'x' && (i = va_arg(*argp, int))
-			&& (set->base = 16))
-		putf_u(i, set, ret);
+	if (**format == 'c')
+		putf_c(c = va_arg(*argp, int), set, ret);
+	else if (**format == 's')
+		putf_s(s = va_arg(*argp, char *), set, ret);
+	else if (**format == 'd' || **format == 'i')
+		putf_i(i = va_arg(*argp, int), set, ret);
+	else if (**format == 'u')
+		putf_u(i = va_arg(*argp, int), set, ret);
+	else if (**format == 'x' && (set->base = 16))
+		putf_u(i = va_arg(*argp, int), set, ret);
+	else if (**format == 'X' && (set->base = 16)
+						&& (set->capital = 16))
+		putf_u(i = va_arg(*argp, int), set, ret);
+	else if (**format == '%')
+		putchar_c('%', ret);
 }
