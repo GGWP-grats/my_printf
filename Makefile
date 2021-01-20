@@ -13,7 +13,7 @@ $(NAME): $(OBJ) $(LIBFT)
 %.o: %.c
 	$(CCW) $(incl) -g -c $< -o $@
 
-test:
+test: $(NAME)
 	$(CCW) test.c $(NAME) $(incl) -o test
 	./test
 

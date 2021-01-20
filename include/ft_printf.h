@@ -13,16 +13,16 @@
 
 typedef struct	s_pft
 {
-	int			f_ladjust;
+	int			ladjust;
 	int			f_prec;
 	int			capital;
 	int			zero;
-	int			prec_width;
+	int			prec;
 	int			width;
 	int			base;
 }				t_pft;
 
-int				pft_atoi(const char **format);
+int				ft_skip_atoi(const char **format);
 int				ft_printf(const char *format, ...);
 int				start_pf(const char *format, va_list *argp);
 int				check_null_str(char *s, t_pft *set, int *ret);

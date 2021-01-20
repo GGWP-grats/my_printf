@@ -3,20 +3,29 @@
 void		putf_i(int i, t_pft *set, int *ret)
 {
 	int wid;
-
+	
 	wid = ft_intwid(i, set->base);
-	if (i < 0)
-		putchar_c('-', ret);
-	if (set->f_prec == TRUE && set->prec_width > wid
-			&& i < 0)
-		set->prec_width += 1;
-	if (set->f_prec == TRUE && set->prec_width > wid &&
-			(set->zero += TRUE) && (set->width = set->prec_width - wid))
-		print_width(set,ret);
-	else if (set->width > 0 && set->f_ladjust == FALSE &&
-								(set->width -= wid))
+	if (set->f_prec && !(set->zero = 0) && !(set->prec)) 
+		;
+	else if (set->prec > wid)
+		set->width -= i > -1 ? set->prec : set->prec + 1;
+	else
+		set->width -= i > -1 ? wid : wid;
+	if (!(set->ladjust) && !(set->zero))
 		print_width(set, ret);
-	putnum_base((long)i, set, ret);
+	if (!set->f_prec || set->prec != 0)
+	{
+		if (i < 0 && wid--)
+			putchar_c('-', ret);
+		if (!(set->ladjust) && set->zero)
+			print_width(set, ret);
+		while (set->f_prec && (set->prec)-- > wid)
+			putchar_c('0', ret);
+		putnum_base(i, set, ret);
+	}
+	set->zero = FALSE;
+	if (set->ladjust)
+		print_width(set, ret);
 }
 
 void		putf_u(unsigned int i, t_pft *set, int *ret)
@@ -25,7 +34,7 @@ void		putf_u(unsigned int i, t_pft *set, int *ret)
 	int wid;
 
 	wid = ft_intwid((long)i, set->base);
-	if (set->width > 0 && set->f_ladjust == FALSE &&
+	if (set->width > 0 && set->ladjust == FALSE &&
 								(set->width -= wid))
 		print_width(set, ret);
 	u_putnum_base(i, set, ret);
@@ -42,14 +51,14 @@ void		putf_s(char *s, t_pft *set, int *ret)
 		s = "(null)";
 	len = ft_strlen(s);	
 	set->zero = FALSE;
-	if (set->f_prec && set->prec_width < len)
-		len = set->prec_width;
-	if (set->f_ladjust == FALSE && set->width > len
+	if (set->f_prec && set->prec < len)
+		len = set->prec;
+	if (set->ladjust == FALSE && set->width > len
 			&& (set->width -= len))
 		print_width(set, ret);
 	write(1, s, len);
 	*ret += len;
-	if (set->f_ladjust && set->width > len
+	if (set->ladjust && set->width > len
 			&& (set->width -= len))
 		print_width(set, ret);
 }
@@ -58,10 +67,10 @@ void		putf_c(char c, t_pft *set, int *ret)
 {
 	set->zero = FALSE;
 	if (set->width > 0 &&
-			set->f_ladjust == FALSE && set->width--)
+			set->ladjust == FALSE && set->width--)
 		print_width(set, ret);
 	putchar_c(c, ret);
 	set->width--;
-	if (set->f_ladjust)
+	if (set->ladjust)
 		print_width(set, ret);
 }

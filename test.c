@@ -3,11 +3,11 @@
 void		print_flags(t_pft *set)
 {
 	printf("\n----set list------\n");
-	printf("f_ladjust = %d\n", set->f_ladjust);
+	printf("ladjust = %d\n", set->ladjust);
 	printf("f_prec = %d\n", set->f_prec);
 	printf("zero = %d\n", set->zero);
 	printf("width = %d\n",set->width);
-	printf("prec_width = %d\n",set->prec_width);
+	printf("prec = %d\n",set->prec);
 	printf("------------------\n");
 }
 
@@ -42,6 +42,8 @@ void	test_s(void)
 	printf("\e[1;35m[%d]\e[0m\n", ret);
 	ret = printf("ix|%.03s|", null);
 	printf("\e[1;35m[%d]\e[0m\n", ret);
+	ret = ft_printf("ix|%.03s|", null);
+	printf("\e[1;35m[%d]\e[0m\n", ret);
 }
 void	test_c(void)
 {
@@ -56,17 +58,21 @@ void	test_i(void)
 {
 	int ret;
 	printf("\e[1;33m------------------------------TEST INTEGER------------------------------\e[0m\n");
-	ret = printf("ix|d.%10d i.%10i u.%10u|",10, 10, 10);
+	ret = printf("ix|d.%10d i.%.2i|",10, -12345);
 	printf("\e[1;35m[%d]\e[0m\n", ret);
-	ret = ft_printf("my|d.%10d i.%10i u.%10u|",10, 10, 10);
+	ret = ft_printf("my|d.%10d i.%.2i|",10, -12345);
 	printf("\e[1;35m[%d]\e[0m\n", ret);
-	ret = printf("ix|d.%010d i.%010i u.%010u|",-10, -10, -10);
+	ret = printf("ix|d.%010d i.%010i|",-10, -10);
 	printf("\e[1;35m[%d]\e[0m\n", ret);
-	ret = ft_printf("my|d.%010d i.%010i u.%010u|",-10, -10, -10);
+	ret = ft_printf("my|d.%010d i.%010i|",-10, -10);
 	printf("\e[1;35m[%d]\e[0m\n", ret);
-	ret = printf("ix|d.%.10d i.%5.10i u.%u|",123123, -123123, 10);
+	ret = printf("ix|d.%.10d i.%5.10i|",123123, -123123);
 	printf("\e[1;35m[%d]\e[0m\n", ret);
-	ret = ft_printf("my|d.%.10d i.%5.10i u.%u|",123123, -123123, 10);
+	ret = ft_printf("my|d.%.10d i.%5.10i|",123123, -123123);
+	printf("\e[1;35m[%d]\e[0m\n", ret);
+	ret = printf("ix|d.%.10d i.%10.5i|",123123, -123);
+	printf("\e[1;35m[%d]\e[0m\n", ret);
+	ret = ft_printf("my|d.%.10d i.%10.5i|",123123, -123);
 	printf("\e[1;35m[%d]\e[0m\n", ret);
 }
 void	test_x(void)
@@ -79,9 +85,9 @@ void	test_x(void)
 }
 int main(void)
 {
-test_s();
+//test_s();
 //test_c();
-//	test_i();
+	test_i();
 	return 0;
 }
 

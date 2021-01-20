@@ -37,7 +37,7 @@ void	get_set(const char **format, va_list *argp, t_pft *set)
 	while (1)
 	{
 		if (**format == '-')
-			set->f_ladjust = TRUE;
+			set->ladjust = TRUE;
 		else if (**format == '0')
 			set->zero = TRUE;
 		else
@@ -45,7 +45,7 @@ void	get_set(const char **format, va_list *argp, t_pft *set)
 		(*format)++;
 	}
 	if (ft_isdigit(**format))
-		set->width = pft_atoi(format);
+		set->width = ft_skip_atoi(format);
 	else if (**format == '*' && (*format)++)
 		if ((set->width= va_arg(*argp, int)) < 0)
 			set->width = -(set->width);
@@ -53,9 +53,9 @@ void	get_set(const char **format, va_list *argp, t_pft *set)
 	{
 		set->f_prec = TRUE;
 		if (ft_isdigit(**format))
-			set->prec_width = pft_atoi(format);
+			set->prec = ft_skip_atoi(format);
 		else if (**format == '*' &&(*format)++)
-			if ((set->prec_width = va_arg(*argp, int)) < 0)
+			if ((set->prec = va_arg(*argp, int)) < 0)
 				set->f_prec = FALSE;
 	}
 }
