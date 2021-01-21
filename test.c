@@ -89,6 +89,16 @@ void	test_n(void)
 	ret = printf("ix|%1230d|%n", 5, &i);
 	printf("\e[1;35m[%u n=%d]\e[0m\n", ret, i);
 }
+void 	test_x(void)
+{
+	int ret;
+
+	printf("\e[1;33m------------------------------TEST POINTER------------------------------\e[0m\n");
+	ret = printf("ix|%#05x|",43);
+	printf("\e[1;35m[%d]\e[0m\n", ret);
+	ret = ft_printf("my|%#05x|",43);
+	printf("\e[1;35m[%d]\e[0m\n", ret);
+}
 void	test_p(void)
 {
 	int ret;
@@ -104,6 +114,7 @@ int main(void)
 //test_c();
 //test_i();
  // test_p();
+ 	test_x();
 //	test_n();
 	return 0;
 }

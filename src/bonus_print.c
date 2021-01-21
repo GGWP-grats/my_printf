@@ -10,3 +10,15 @@ void		bonus(const char **format, va_list *argp, t_pft *set, int *ret)
 		(*format)--;
 	(void)*set;
 }
+
+void		putf_x(t_pft *set, int *ret)
+{
+	if (set->sharp && (set->prec || !set->f_prec))
+	{
+	//	set->prefix[0] = '0';
+		//set->prefix[0] = set->capital == 16 ? 'X' : 'x';
+		putchar_c('0', ret);
+		set->capital == 16 ? putchar_c('X', ret) : putchar_c('x', ret);
+	}
+	set->sharp = 0;
+}
