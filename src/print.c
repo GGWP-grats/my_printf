@@ -74,19 +74,18 @@ void		do_print(const char **format, va_list *argp, t_pft *set, int *ret)
 	else if (**format == 's')
 		putf_s(s = va_arg(*argp, char *), set, ret);
 	else if (**format == 'd' || **format == 'i')
-		putf_i(i = va_arg(*argp, int), set, ret);
+		putf_i(i = va_arg(*argp, long long), set, ret);
 	else if (**format == 'u')
-		putf_u((lu = va_arg(*argp, unsigned long)), set, ret);
+		putf_u((lu = va_arg(*argp, unsigned long long)), set, ret);
 	else if (**format == 'x' && (set->base = 16))
-		putf_u(lu = va_arg(*argp, unsigned long), set, ret);
+		putf_u(lu = va_arg(*argp, unsigned long long), set, ret);
 	else if (**format == 'X' && (set->base = 16)
 			&& (set->capital = 16))
-		putf_u(lu = va_arg(*argp, unsigned long), set, ret);
+		putf_u(lu = va_arg(*argp, unsigned long long), set, ret);
 	else if (**format == 'p' && (set->base = 16))
 		putf_p(s = va_arg(*argp, void *), set, ret);
 	else if (**format == '%')
 		putchar_c('%', ret);
 	else
-		(*format)--;
-		//bonus_do_print(format, argp, set, ret);//
+		bonus(format, argp, set, ret);
 }

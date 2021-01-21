@@ -75,15 +75,19 @@ void	test_i(void)
 	ret = ft_printf("my|d.%.10d i.%10.5i|",123123, -123);
 	printf("\e[1;35m[%d]\e[0m\n", ret);
 }
-void	test_u(void)
+void	test_n(void)
 {
 	int ret;
-	printf("\e[1;33m------------------------------TEST UNSIGNED------------------------------\e[0m\n");
-	unsigned int i= -1;
-	ret = ft_printf("my|%*u|",-42, i);
-	printf("\e[1;35m[%d]\e[0m\n", ret);
-	ret = printf("ix|%-*d|",-42, i);
-	printf("\e[1;35m[%d]\e[0m\n", ret);
+	printf("\e[1;33m------------------------------TEST N------------------------------\e[0m\n");
+	int	i;
+	ret = ft_printf("my|%123d|%n", 5, &i);
+	printf("\e[1;35m[%u n=%d]\e[0m\n", ret, i);
+	ret = printf("ix|%123d|%n", 5, &i);
+	printf("\e[1;35m[%u n=%d]\e[0m\n", ret, i);
+	ret = ft_printf("my|%1230d|%n", 5, &i);
+	printf("\e[1;35m[%u n=%d]\e[0m\n", ret, i);
+	ret = printf("ix|%1230d|%n", 5, &i);
+	printf("\e[1;35m[%u n=%d]\e[0m\n", ret, i);
 }
 void	test_p(void)
 {
@@ -99,8 +103,8 @@ int main(void)
 //test_s();
 //test_c();
 //test_i();
-//  test_p();
-	test_u();
+ // test_p();
+//	test_n();
 	return 0;
 }
 

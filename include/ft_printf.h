@@ -17,6 +17,9 @@ typedef struct	s_pft
 	int			f_prec;
 	int			capital;
 	int			zero;
+	int			space;
+	int			plus;
+	int			sharp;
 	int			prec;
 	int			width;
 	char		prefix[2];
@@ -37,7 +40,8 @@ void			putf_u(unsigned long long i, t_pft *set, int *ret);
 void			putf_s(char *s, t_pft *set, int *ret);
 void			putf_c(char c, t_pft *set, int *ret);
 void			putf_p(void *p, t_pft *set, int *ret);
+void			get_flags(const char **format, va_list *argp, t_pft *set);
 void			get_set(const char **format, va_list *argp, t_pft *set);
+void			bonus(const char **format, va_list *argp, t_pft *set, int *ret);
 
-//void			print_flags(t_pft *set);
 #endif
