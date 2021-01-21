@@ -19,7 +19,7 @@ void		putchar_c(char c, int *ret)
 	write(1, &c, 1);
 }
 
-void		putnum_base(long int i, t_pft *set, int *ret)
+void		putnum_base(long long i, t_pft *set, int *ret)
 {		
 	int len;
 	
@@ -35,9 +35,9 @@ void		putnum_base(long int i, t_pft *set, int *ret)
 		putchar_c(ARR_BASE[i + set->capital], ret);
 }
 
-void		u_putnum_base(unsigned long int i, t_pft *set, int *ret)
+void		u_putnum_base(unsigned long long i, t_pft *set, int *ret)
 {		
-	unsigned int len;
+	unsigned long len;
 	
 	len = set->base;
 	if (i >= len)
@@ -67,6 +67,7 @@ void		do_print(const char **format, va_list *argp, t_pft *set, int *ret)
 	char 	*s;
 	char 	c;
 	int		i;
+	unsigned long long lu;
 
 	if (**format == 'c')
 		putf_c(c = va_arg(*argp, int), set, ret);
@@ -75,12 +76,17 @@ void		do_print(const char **format, va_list *argp, t_pft *set, int *ret)
 	else if (**format == 'd' || **format == 'i')
 		putf_i(i = va_arg(*argp, int), set, ret);
 	else if (**format == 'u')
-		putf_u(i = va_arg(*argp, int), set, ret);
+		putf_u((lu = va_arg(*argp, unsigned long)), set, ret);
 	else if (**format == 'x' && (set->base = 16))
-		putf_u(i = va_arg(*argp, int), set, ret);
+		putf_u(lu = va_arg(*argp, unsigned long), set, ret);
 	else if (**format == 'X' && (set->base = 16)
-						&& (set->capital = 16))
-		putf_u(i = va_arg(*argp, int), set, ret);
+			&& (set->capital = 16))
+		putf_u(lu = va_arg(*argp, unsigned long), set, ret);
+	else if (**format == 'p' && (set->base = 16))
+		putf_p(s = va_arg(*argp, void *), set, ret);
 	else if (**format == '%')
 		putchar_c('%', ret);
+	else
+		(*format)--;
+		//bonus_do_print(format, argp, set, ret);//
 }

@@ -28,16 +28,31 @@ void		putf_i(int i, t_pft *set, int *ret)
 		print_width(set, ret);
 }
 
-void		putf_u(unsigned int i, t_pft *set, int *ret)
+void		putf_u(unsigned long long i, t_pft *set, int *ret)
 {
 
-	int wid;
+	int 	wid;
 
-	wid = ft_intwid((long)i, set->base);
-	if (set->width > 0 && set->ladjust == FALSE &&
-								(set->width -= wid))
+	wid = ft_intwid(i, set->base);
+	if (set->f_prec && !(set->zero = 0) && !(set->prec))
+		;
+	else if (set->prec > wid)
+		set->width -= set->prefix[0] ? set->prec + 2 : set->prec;
+	else 
+		set->width -= set->prefix[0] ? wid + 2 : wid;
+	if (!set->ladjust)
 		print_width(set, ret);
-	u_putnum_base(i, set, ret);
+	if (!set->f_prec || set->prec)
+	{
+		if (set->prefix[0] && (*ret += 2))
+			write(1, set->prefix, 2);
+		while (set->f_prec && (set->prec)-->wid)
+			putchar_c('0', ret);
+		u_putnum_base(i, set, ret);
+	}
+	set->zero = FALSE;
+	if (set->ladjust)
+		print_width(set, ret);
 }
 
 void		putf_s(char *s, t_pft *set, int *ret)
@@ -73,4 +88,15 @@ void		putf_c(char c, t_pft *set, int *ret)
 	set->width--;
 	if (set->ladjust)
 		print_width(set, ret);
+}
+void		putf_p(void *p, t_pft *set, int *ret)
+{
+	if (!p && (*ret += 5))
+		write(1, "(nil)", 5); 
+	else
+	{
+		(set->prefix)[0] = '0';
+		(set->prefix)[1] = 'x';
+		putf_u((long long)p, set, ret);
+	}
 }

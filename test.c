@@ -75,19 +75,32 @@ void	test_i(void)
 	ret = ft_printf("my|d.%.10d i.%10.5i|",123123, -123);
 	printf("\e[1;35m[%d]\e[0m\n", ret);
 }
-void	test_x(void)
+void	test_u(void)
 {
 	int ret;
-	printf("\e[1;33m------------------------------TEST INTEGER------------------------------\e[0m\n");
-	ret = printf("ix|%u %u|",10, -1);
-	printf("[%d]\n", ret);
-	ret = ft_printf("my|%u %u|",10, -1);
+	printf("\e[1;33m------------------------------TEST UNSIGNED------------------------------\e[0m\n");
+	unsigned int i= -1;
+	ret = ft_printf("my|%u|", i);
+	printf("\e[1;35m[%d]\e[0m\n", ret);
+	ret = printf("ix|%u %llu|", i, (unsigned long long)-1);
+	printf("\e[1;35m[%d]\e[0m\n", ret);
+}
+void	test_p(void)
+{
+	int ret;
+	printf("\e[1;33m------------------------------TEST POINTER------------------------------\e[0m\n");
+	ret = ft_printf("my|%-32p|",&ret);
+	printf("\e[1;35m[%d]\e[0m\n", ret);
+	ret = printf("ix|% *p|",142, &ret);
+	printf("\e[1;35m[%d]\e[0m\n", ret);
 }
 int main(void)
 {
 //test_s();
 //test_c();
-	test_i();
+//test_i();
+//  test_p();
+	test_u();
 	return 0;
 }
 

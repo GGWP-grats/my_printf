@@ -19,6 +19,7 @@ typedef struct	s_pft
 	int			zero;
 	int			prec;
 	int			width;
+	char		prefix[2];
 	int			base;
 }				t_pft;
 
@@ -27,15 +28,16 @@ int				ft_printf(const char *format, ...);
 int				start_pf(const char *format, va_list *argp);
 int				check_null_str(char *s, t_pft *set, int *ret);
 void			putchar_c(char c, int *ret);
-void			putnum_base(long int i, t_pft *set, int *ret);
-void			u_putnum_base(unsigned long int i, t_pft *set, int *ret);
+void			putnum_base(long long i, t_pft *set, int *ret);
+void			u_putnum_base(unsigned long long i, t_pft *set, int *ret);
+void			print_width(t_pft *set, int *ret);
+void			do_print(const char **format, va_list *argp, t_pft *set, int *ret);
 void			putf_i(int i, t_pft *set, int *ret);
-void			putf_u(unsigned int i, t_pft *set, int *ret);
+void			putf_u(unsigned long long i, t_pft *set, int *ret);
 void			putf_s(char *s, t_pft *set, int *ret);
 void			putf_c(char c, t_pft *set, int *ret);
+void			putf_p(void *p, t_pft *set, int *ret);
 void			get_set(const char **format, va_list *argp, t_pft *set);
-void			do_print(const char **format, va_list *argp, t_pft *set, int *ret);
-void			print_width(t_pft *set, int *ret);
 
 //void			print_flags(t_pft *set);
 #endif

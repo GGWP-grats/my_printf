@@ -14,7 +14,7 @@ int		start_pf(const char *format, va_list *argp)
 	t_pft set;
 
 	ret = 0;
-	set = (t_pft){0, 0, 0, 0, 0, 0, 10};
+	set = (t_pft){0, 0, 0, 0, 0, 0, {0, 0}, 10};
 	while (*format)
 	{
 		if (*format != '%')
@@ -24,7 +24,7 @@ int		start_pf(const char *format, va_list *argp)
 			format++;
 			get_set(&format, argp, &set);
 			do_print(&format, argp, &set, &ret);
-			set = (t_pft){0, 0, 0, 0, 0, 0, 10};
+			set = (t_pft){0, 0, 0, 0, 0, 0, {0, 0}, 10};
 		}
 		format++;
 	}
