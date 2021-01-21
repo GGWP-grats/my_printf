@@ -80,9 +80,9 @@ void	test_u(void)
 	int ret;
 	printf("\e[1;33m------------------------------TEST UNSIGNED------------------------------\e[0m\n");
 	unsigned int i= -1;
-	ret = ft_printf("my|%u|", i);
+	ret = ft_printf("my|%*u|",-42, i);
 	printf("\e[1;35m[%d]\e[0m\n", ret);
-	ret = printf("ix|%u %llu|", i, (unsigned long long)-1);
+	ret = printf("ix|%-*d|",-42, i);
 	printf("\e[1;35m[%d]\e[0m\n", ret);
 }
 void	test_p(void)
@@ -91,7 +91,7 @@ void	test_p(void)
 	printf("\e[1;33m------------------------------TEST POINTER------------------------------\e[0m\n");
 	ret = ft_printf("my|%-32p|",&ret);
 	printf("\e[1;35m[%d]\e[0m\n", ret);
-	ret = printf("ix|% *p|",142, &ret);
+	ret = printf("ix|%p|",&ret);
 	printf("\e[1;35m[%d]\e[0m\n", ret);
 }
 int main(void)
