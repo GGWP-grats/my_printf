@@ -1,5 +1,5 @@
 NAME = libftprintf.a
-SRC = src/print.c src/ft_printf.c src/put_format.c src/printf_aux.c src/bonus_print.c
+SRC = src/print.c src/ft_printf.c src/put_format.c src/bonus_print.c
 OBJ = $(SRC:.c=.o)
 CCW = gcc -Wall -Wextra -Werror -g 
 LIBFT = libft/
@@ -8,7 +8,7 @@ incl = -I include/
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT) include/ft_printf.h
-	ar rc $(NAME) */*.o
+	ar rc $(NAME) $(OBJ) libft/*.o
 
 bonus:
 	all

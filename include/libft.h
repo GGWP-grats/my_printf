@@ -6,7 +6,7 @@
 /*   By: wquenten <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 13:59:58 by wquenten          #+#    #+#             */
-/*   Updated: 2020/11/17 19:14:59 by wquenten         ###   ########.fr       */
+/*   Updated: 2021/01/23 06:34:08 by wquenten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,5 @@ void				ft_putstr(char *s);
 int					ft_ctod(char c);
 int					ft_intwid(long int i, int base);
 void				ft_putnbr_base(long int i, const char *base);
+int					ft_skip_atoi(const char **s);
 #endif

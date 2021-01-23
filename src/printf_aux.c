@@ -10,24 +10,3 @@ int			check_null_str(char *s, t_pft *set, int *ret)
 		print_width(set, ret);
 	return (1);
 }
-
-int			ft_skip_atoi(const char **format)
-{
-	int i;
-	int sign;
-
-	sign = 1;
-	i = 0;
-	if (**format == '+' || **format == '-')
-	{
-		if (**format == '-')
-			sign = -1;
-		(*format)++;
-	}
-	while (ft_isdigit(**format))
-	{
-		i = i * 10 + ft_ctod(**format);
-		(*format)++;
-	}
-	return (i * sign);
-}

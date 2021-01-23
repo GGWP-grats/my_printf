@@ -1,18 +1,5 @@
 #include "ft_printf.h"
 
-/*
-** main goal is to write printf
-** Mandatory part
-** with following conversions:
-**
-**		 c s p d i u x X %
-**
-** and manage flags:
-**
-**			- 0 . * 
-**
-*/
-
 void		putchar_c(char c, int *ret)
 {
 	*ret += 1;
@@ -69,7 +56,7 @@ void		do_print(const char **format, va_list *argp, t_pft *set, int *ret)
 	int		i;
 	unsigned long long lu;
 
-	if (**format == 'c')
+	if (**format == 'c' && !(set->zero = FALSE))
 		putf_c(c = va_arg(*argp, int), set, ret);
 	else if (**format == 's')
 		putf_s(s = va_arg(*argp, char *), set, ret);
@@ -85,7 +72,7 @@ void		do_print(const char **format, va_list *argp, t_pft *set, int *ret)
 	else if (**format == 'p' && (set->base = 16))
 		putf_p(s = va_arg(*argp, void *), set, ret);
 	else if (**format == '%')
-		putchar_c('%', ret);
+		putf_c('%', set, ret);
 	else
 		bonus(format, argp, set, ret);
 }

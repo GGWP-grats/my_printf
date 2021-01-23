@@ -103,19 +103,38 @@ void	test_p(void)
 {
 	int ret;
 	printf("\e[1;33m------------------------------TEST POINTER------------------------------\e[0m\n");
-	ret = ft_printf("my|%-32p|",&ret);
+	ret = ft_printf("my|%-32p|", &ret);
 	printf("\e[1;35m[%d]\e[0m\n", ret);
-	ret = printf("ix|%p|",&ret);
+	ret = printf("ix|%-32p|",&ret);
 	printf("\e[1;35m[%d]\e[0m\n", ret);
+	ret = ft_printf("my|%p|", 0);
+	printf("\e[1;35m[%d]\e[0m\n", ret);
+	ret = printf("ix|%p|", NULL);
+	printf("\e[1;35m[%d]\e[0m\n", ret);
+}
+void	test_percent(void)
+{
+	int ret;
+	printf("\e[1;33m------------------------------TEST PERCENT------------------------------\e[0m\n");
+	ret = ft_printf("my|%05%|");
+	printf("\e[1;35m[%d]\e[0m\n", ret);
+	ret = printf("ix|%05%|");
+	printf("\e[1;35m[%d]\e[0m\n", ret);
+	ret = ft_printf("my|%-05%|");
+	printf("\e[1;35m[%d]\e[0m\n", ret);
+	ret = printf("ix|%-05%|");
+	printf("\e[1;35m[%d]\e[0m\n", ret);
+	
 }
 int main(void)
 {
-//test_s();
+test_s();
 //test_c();
 //test_i();
- // test_p();
- 	test_x();
-//	test_n();
+//test_p();
+//test_x();
+//test_n();
+//test_percent();
 	return 0;
 }
 

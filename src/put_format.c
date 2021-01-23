@@ -39,7 +39,7 @@ void		putf_u(unsigned long long i, t_pft *set, int *ret)
 		;
 	else if (set->prec > wid)
 		set->width -= set->prefix[0] | set->sharp ? set->prec + 2 : set->prec;
-	else (wid != 1); 
+	else 
 		set->width -= set->prefix[0] | set->sharp ? wid + 2 : wid;
 	if (!set->ladjust)
 		print_width(set, ret);
@@ -61,12 +61,10 @@ void		putf_u(unsigned long long i, t_pft *set, int *ret)
 void		putf_s(char *s, t_pft *set, int *ret)
 {
 	int len;
-	int chknull;
+	char *p = "(null)";
 
-	if ((chknull = check_null_str(s, set, ret)) == 1)
-		return ;
-	else if (chknull < 0)
-		s = "(null)";
+	if (!s)
+		s = p;
 	len = ft_strlen(s);	
 	set->zero = FALSE;
 	if (set->f_prec && set->prec < len)
@@ -83,23 +81,19 @@ void		putf_s(char *s, t_pft *set, int *ret)
 
 void		putf_c(char c, t_pft *set, int *ret)
 {
-	set->zero = FALSE;
 	if (set->width > 0 &&
 			set->ladjust == FALSE && set->width--)
 		print_width(set, ret);
 	putchar_c(c, ret);
 	set->width--;
+	set->zero = FALSE;
 	if (set->ladjust)
 		print_width(set, ret);
 }
+
 void		putf_p(void *p, t_pft *set, int *ret)
 {
-	if (!p && (*ret += 5))
-		write(1, "(nil)", 5); //test me with width and all conversations
-	else
-	{
 		(set->prefix)[0] = '0';
 		(set->prefix)[1] = set->capital == 16 ? 'X' : 'x';
 		putf_u((long long)p, set, ret);
-	}
 }
