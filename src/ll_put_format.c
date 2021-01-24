@@ -6,7 +6,7 @@
 /*   By: wquenten <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 10:22:23 by wquenten          #+#    #+#             */
-/*   Updated: 2021/01/24 10:22:48 by wquenten         ###   ########.fr       */
+/*   Updated: 2021/01/24 10:40:31 by wquenten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void		putf_llu(unsigned long long i, t_pft *set, int *ret)
 	if (!set->prec && set->f_prec && !i)
 		;
 	else
-		llu_putnum_base(i, set, ret);
+		ull_putnum_base(i, set, ret);
 	if (set->ladjust && !(set->zero = 0))
 		print_width(set, ret);
 }

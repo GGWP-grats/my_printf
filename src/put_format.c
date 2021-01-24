@@ -6,7 +6,7 @@
 /*   By: wquenten <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 10:27:05 by wquenten          #+#    #+#             */
-/*   Updated: 2021/01/24 10:28:24 by wquenten         ###   ########.fr       */
+/*   Updated: 2021/01/24 10:39:06 by wquenten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void		putf_s(char *s, t_pft *set, int *ret)
 	int		len;
 	char	p[6];
 
-	p = "(null)";
+	ft_strlcpy(p, "(null)", 7);
 	if (!s)
 		s = p;
 	len = ft_strlen(s);

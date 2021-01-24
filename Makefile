@@ -1,5 +1,5 @@
 NAME = libftprintf.a
-SRC = src/print.c src/ft_printf.c src/put_format.c src/bonus_print.c
+SRC = src/print.c src/ft_printf.c src/put_format.c src/bonus_print.c src/ll_put_format.c
 OBJ = $(SRC:.c=.o)
 CCW = gcc -Wall -Wextra -Werror -g 
 LIBFT = libft/
@@ -14,10 +14,10 @@ bonus:
 	all
 
 %.o: %.c
-	$(CCW) $(incl) -g -c $< -o $@
+	$(CCW) $(incl) -c $< -o $@
 
 test: $(NAME)
-	$(CCW) test.c $(NAME) $(incl) -o test
+	$(CCW) test.c -g $(NAME) $(incl) -o test
 	./test
 
 clean:
@@ -28,10 +28,11 @@ $(LIBFT):
 	@make -C libft
 
 fclean: clean
-	@make fclean -C	$(LIBFT) 
 	@rm -rf $(NAME) test
+	@rm -rf *.dSYM
 
 re: clean all
+	@make fclean -C	$(LIBFT) 
 
 ref: fclean
 
