@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_format.c                                       :+:      :+:    :+:   */
+/*   ll_put_format.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wquenten <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/24 10:27:05 by wquenten          #+#    #+#             */
-/*   Updated: 2021/01/24 10:28:24 by wquenten         ###   ########.fr       */
+/*   Created: 2021/01/24 10:22:23 by wquenten          #+#    #+#             */
+/*   Updated: 2021/01/24 10:22:48 by wquenten         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		putf_i(int i, t_pft *set, int *ret)
+void		putf_ll(long long i, t_pft *set, int *ret)
 {
 	int		wid;
 
@@ -36,12 +36,12 @@ void		putf_i(int i, t_pft *set, int *ret)
 	if (!set->prec && set->f_prec && !i)
 		;
 	else
-		putnum_base(i, set, ret);
+		ll_putnum_base(i, set, ret);
 	if (set->ladjust && !(set->zero = 0))
 		print_width(set, ret);
 }
 
-void		putf_u(unsigned int i, t_pft *set, int *ret)
+void		putf_llu(unsigned long long i, t_pft *set, int *ret)
 {
 	int		wid;
 
@@ -61,48 +61,7 @@ void		putf_u(unsigned int i, t_pft *set, int *ret)
 	if (!set->prec && set->f_prec && !i)
 		;
 	else
-		u_putnum_base(i, set, ret);
+		llu_putnum_base(i, set, ret);
 	if (set->ladjust && !(set->zero = 0))
 		print_width(set, ret);
-}
-
-void		putf_s(char *s, t_pft *set, int *ret)
-{
-	int		len;
-	char	p[6];
-
-	p = "(null)";
-	if (!s)
-		s = p;
-	len = ft_strlen(s);
-	set->zero = FALSE;
-	if (set->f_prec && set->prec < len)
-		len = set->prec;
-	if (set->ladjust == FALSE && set->width > len
-			&& (set->width -= len))
-		print_width(set, ret);
-	write(1, s, len);
-	*ret += len;
-	if (set->ladjust && set->width > len
-			&& (set->width -= len))
-		print_width(set, ret);
-}
-
-void		putf_c(char c, t_pft *set, int *ret)
-{
-	if (set->width > 0 &&
-			set->ladjust == FALSE && set->width--)
-		print_width(set, ret);
-	putchar_c(c, ret);
-	set->width--;
-	set->zero = FALSE;
-	if (set->ladjust)
-		print_width(set, ret);
-}
-
-void		putf_p(void *p, t_pft *set, int *ret)
-{
-	(set->prefix)[0] = '0';
-	(set->prefix)[1] = set->capital == 16 ? 'X' : 'x';
-	putf_llu((unsigned long long)p, set, ret);
 }
